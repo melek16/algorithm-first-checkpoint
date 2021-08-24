@@ -1,0 +1,49 @@
+ALGORITHM algo_checkpoint
+VAR
+    sentence,ch:STRING;
+    i,j,k,p:INTEGER;
+    test:BOOLEAN;
+BEGIN
+//check the sentence 
+//PS:first index of a string is 1 (not 0)
+REPEAT
+    write("Sentence: ");
+    read(sentence);
+    i:=1;
+    REPEAT
+    test:=sentence[i] in ['a'..'z','A'..'Z',' '];
+    i:=i+1;
+    UNTIL (not(test) or (i=length(sentence)));
+    
+UNTIL (test and(sentence[length(sentence)]='.'));
+//only keep single spaces
+REPEAT
+    delete(sentence,pos('  ',sentence),1);
+UNTIL (pos('  ',sentence)=0);
+//check first char
+IF (sentence[1]=' ') THEN
+    delete(sentence,1,1);
+END_IF;
+//length of sentence
+write(length(sentence));
+//number of words
+j:=0;
+ch:=sentence;
+REPEAT
+p:=pos(' ',ch);
+IF (p<>0) THEN
+delete(sentence,p,1);
+j:=j+1;
+END_IF;
+UNTIL (p=0);
+write("The number of words is: ",j+1)
+//number of vowels
+k:=0;
+FOR i FROM 1 TO length(sentence) STEP 1  DO
+    IF (uppercase(sentence[i]) in ['A','E','I','U','O','Y']) THEN
+        k:=k+1;
+    END_IF;
+END_FOR;
+write("The number of vowels is: ",k)
+
+END
